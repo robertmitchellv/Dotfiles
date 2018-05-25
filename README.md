@@ -1,17 +1,17 @@
 # Dotfiles Readme
 
-This is my simple new Mac setup repo
+This is my simple new `Pop!_OS` setup branch 
 
-### 1. X-Code cli tools
+### 1. Before `linuxbrew` 
 
-Make sure you have the X-Code cli tools installed; check by launching the terminal and typing `gcc`--if no cli tools exist, the system will prompt you to install.
-
-You may also be prompted to agree to the cli tool terms, which is another option when you enter `gcc` (beyond it running, of course).
-
-Also, you can do this manually:
+Run this to make sure you have what you need before installing `linuxbrew`
 
 ```{bash}
-xcode-select --install
+sudo apt install -y build-essential make cmake scons curl git \
+                               ruby autoconf automake autoconf-archive \
+                               gettext libtool flex bison \
+                               libbz2-dev libcurl4-openssl-dev \
+                               libexpat-dev libncurses-dev
 ```
 
 ### 2. Clone the repo
@@ -31,17 +31,27 @@ chmod +x create-structure.sh
 ./create-structure.sh
 ```
 
-### 4. Homebrew
+### 4. Linuxbrew
 
-Install `homebrew` (check the [site](https://brew.sh/) to be sure the command below is correct, do _not_ blindly copy/paste into the terminal)
+Install `linuxbrew` (check the [site](http://linuxbrew.sh/) to be sure the command below is correct, do _not_ blindly copy/paste into the terminal)
 
 ```{bash}
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
 ```
 
-Next update `homebrew`
+To add Linuxbrew to your `PATH` and to your bash shell profile script `~/.profile` enter the following:
 
 ```{bash}
+test -d ~/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
+test -d /home/linuxbrew/.linuxbrew && PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
+test -r ~/.bash_profile && echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.bash_profile
+echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.profile
+```
+
+Next check that everything is ok and then update `homebrew`
+
+```{bash}
+brew doctor
 brew update && brew upgrade
 ```
 
@@ -51,6 +61,8 @@ The `Brewfile` contains the `homebrew` installs that seem best for my workflow a
 * Hadley Wickham's [Dockerfile](https://github.com/hadley/docker/blob/master/rdevel/Dockerfile)
 * The `rocker/geospatial` [Dockerfile](https://hub.docker.com/r/rocker/geospatial/~/dockerfile/)
 * [This](http://luisspuerto.net/2018/01/install-r-100-homebrew-edition-with-openblas-openmp-my-version/) blog post by Luis Puerto
+
+One issue important to note is that `cask`s do not work on `linuxbrew` so the `Bewfile` is not the same and won't be able to install _everything_.
 
 To run:
 
@@ -158,6 +170,4 @@ Check that everything is stored correctly
 ```{bash}
 cat ~/.gitconfig
 ```
-
-
 
