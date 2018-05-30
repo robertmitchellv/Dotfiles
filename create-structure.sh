@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x verbose  # --> echo on
+
 # make sure we're ~
 cd ~/
 
@@ -70,6 +72,7 @@ cd ~/media/video
 mkdir personal tv-movie
 
 # --> get path ready for homebrew
+cd ~/
 echo "export LC_ALL=en_US.UTF-8" >> ~/.bash_profile
 echo "export LANG=en_US.UTF-8" >> ~/.bash_profile
 echo "export PATH=/usr/local/bin:$PATH" >> ~/.bash_profile && source ~/.bash_profile
