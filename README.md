@@ -2,26 +2,13 @@
 
 This is my simple new `Pop!_OS` setup branch 
 
-### 1. Before `linuxbrew` 
-
-Run this to make sure you have what you need before installing `linuxbrew`
+### 1. Clone the repo
 
 ```{bash}
-sudo apt install -y build-essential make cmake scons curl git \
-                               ruby autoconf automake autoconf-archive \
-                               gettext libtool flex bison \
-                               libbz2-dev libcurl4-openssl-dev \
-                               libexpat-dev libncurses-dev
+git clone https://github.com/robertmitchellv/dotfiles.git ~/dotfiles
 ```
 
-### 2. Clone the repo
-
-```{bash}
-cd ~/
-git clone https://github.com/robertmitchellv/dotfiles.git
-```
-
-### 3. Create directories
+### 2. Create directories
 
 The `create-structure.sh` script creates the directories I want to start using as a way to better organize my files.
 
@@ -31,47 +18,29 @@ chmod +x create-structure.sh
 ./create-structure.sh
 ```
 
-### 4. Linuxbrew
+### 3. Download packages with `apt`
 
-Install `linuxbrew` (check the [site](http://linuxbrew.sh/) to be sure the command below is correct, do _not_ blindly copy/paste into the terminal)
-
-```{bash}
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-```
-
-To add Linuxbrew to your `PATH` and to your bash shell profile script `~/.profile` enter the following:
-
-```{bash}
-test -d ~/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
-test -d /home/linuxbrew/.linuxbrew && PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
-test -r ~/.bash_profile && echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.bash_profile
-echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.profile
-```
-
-Next check that everything is ok and then update `homebrew`
-
-```{bash}
-brew doctor
-brew update && brew upgrade
-```
-
-The `Brewfile` contains the `homebrew` installs that seem best for my workflow and are a collection of ideas from:
+The `apt-install.sh` script will install all of the packages needed to install the `R` packages in `packages.R` file. It started as a `brewfile` on macOS inspired by these sources::
 
 * [Bob Rudis](https://rud.is/b/2015/10/22/installing-r-on-os-x-100-homebrew-edition/)
 * Hadley Wickham's [Dockerfile](https://github.com/hadley/docker/blob/master/rdevel/Dockerfile)
 * The `rocker/geospatial` [Dockerfile](https://hub.docker.com/r/rocker/geospatial/~/dockerfile/)
 * [This](http://luisspuerto.net/2018/01/install-r-100-homebrew-edition-with-openblas-openmp-my-version/) blog post by Luis Puerto
 
-One issue important to note is that `cask`s do not work on `linuxbrew` so the `Bewfile` is not the same and won't be able to install _everything_.
-
 To run:
 
 ```{bash}
-cd ~/dotfiles/
-brew bundle
+chmod +x apt-install.sh
+sudo ./apt-install.sh
 ```
 
-### 5. Install oh-my-zsh
+### 4. Install `oh-my-zsh`
+
+Check that `zsh` is installed
+
+```{bash}
+zsh --version
+```
 
 Via `curl`
 
@@ -79,7 +48,7 @@ Via `curl`
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
-### 6. .(zsh/vim)rc
+### 5. .(zsh/vim)rc
 
 Before creating a symlink, you may have to remove the stock `.zshrc` that was
 just installed.
@@ -123,6 +92,22 @@ When it's finished, it's a simple
 :q!
 ```
 
+### 6. `npm`
+
+For `phantomjs` and `casperjs` install via `npm` globally 
+
+```{bash}
+sudo npm install -g phantomjs
+sudo npm install -g git+https://github.com/casperjs/casperjs.git
+```
+
+Check that everything was installed
+
+```{bash}
+phantomjs --version
+casperjs --version
+```
+
 ### 7. Rprofile
 
 Very minimal, it points to where I want to keep my R packages mostly
@@ -144,17 +129,18 @@ R
 Then in the R console enter:
 
 ```{r}
-source("Packages.R")
+source("packages.R")
 install.packages(packages)
 ```
 
-There are some packages that may not install correctly due to flags not being
-set or incompatability with the version of R you're using. Check dependancies
-on CRAN and ensure the right software is also installed with `homebrew`. In some of those cases you can install from Github like so: 
+This should install all `R` packages, however, if there are any errors, check
+the message and see if you can follow along and install what is needed. It is
+also possible to install from `GitHub` as well.
 
 ```{r}
 remotes::install_github("username/package")
 ```
+
 ### 9. GitHub Credentials
 
 So you don't have to enter these all the time, set up credentials now:
@@ -169,5 +155,33 @@ Check that everything is stored correctly
 
 ```{bash}
 cat ~/.gitconfig
+```
+
+### 10. Custom fonts
+
+Start by creating a `.fonts` directory in `~/`
+
+```{bash}
+mkdir ~/.fonts
+```
+
+The script `get-fonts.sh` will use `wget` to pluck fonts from online into a
+symlinked directory that we cache to ensure the system can use fonts right
+away.
+
+### 11. `hub`
+
+Build from source via `git`
+
+```{bash}
+git clone https://github.com/github/hub.git ~/tmp/hub
+cd ~/tmp/hub
+sudo script/build -o /bin/hub
+```
+
+Now create an alias in `.zshrc`
+
+```{bash}
+alias git="hub"
 ```
 
