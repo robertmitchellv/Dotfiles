@@ -13,12 +13,6 @@
 # oh-my-zsh generated settings:
 #
 
-# if you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# path to your oh-my-zsh installation.
-export ZSH=/Users/rbmv/.oh-my-zsh
-
 # set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # see https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -53,6 +47,10 @@ source $ZSH/oh-my-zsh.sh
 # functions
 #
 
+installed() {apt list | grep -i "$1"}
+bin-search() {lsa /bin/ | grep -i "$1"}
+bin-usr-search() {lsa /usr/bin/ | grep -i "$1"}
+
 clam(){clamscan -r --bell -i $1}
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
@@ -64,33 +62,28 @@ prompt_context() {
 # path variables
 #
 
-export PATH="/usr/local/opt/libpq/bin:$PATH"
-export PATH="/usr/local/opt/v8@3.15/bin:$PATH"    
+export ZSH="/home/rbmv/.oh-my-zsh"
+export PATH="/bin:/usr/bin:$PATH"
+# export PATH="/usr/bin/gdal-config:$PATH"
 
 #
 # compilation flags
 #
 
-export ARCHFLAGS="-arch x86_64"
-export LDFLAGS="-L/usr/local/opt/libpq/lib"
-export CPPFLAGS="-I/usr/local/opt/libpq/include"
-export PKG_CONFIG_PATH="/usr/local/opt/libpq/lib/pkgconfig"
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
-export LDFLAGS="-L/usr/local/opt/v8@3.15/lib"
-export CPPFLAGS="-I/usr/local/opt/v8@3.15/include"
-export EDITOR='vim'
+export EDITOR="vim"
 
 #
 # personal aliases 
 #
 
 alias zshrc="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
 alias vimrc="vim ~/.vimrc"
-alias cd..="cd ../"
+alias cd..="cd .."
+alias cd../="cd ../"
 alias c="clear"
-alias update="brew update && brew upgrade && brew cleanup && brew cask cleanup && brew cask upgrade && brew cask cleanup"
+alias update="sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -y"
+alias apt-doctor="sudo apt clean && sudo apt update -m && sudo dpkg --configure -a && sudo apt install -f && sudo apt dist-upgrade && sudo apt autoremove --purge"
 alias git="hub"
-
 

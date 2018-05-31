@@ -1,7 +1,7 @@
 " @robertmitchellv
 "
 "  ___________
-" <  .vimrc   >
+" <  .vimrc   > 
 "  -----------
 "         \   ^__^
 "          \  (oo)\_______
@@ -66,7 +66,7 @@ filetype plugin indent on    " required
 " colors
 "
 
-colorscheme solarized
+" colorscheme solarized
 
 "
 " syntax
@@ -101,9 +101,9 @@ set wildmenu
 " lets
 "
  
-" let g:airline_powerline_fongs = 1 
-let g:solarized_termtrans=1
-let g:solarized_termcolors=256
+" let g:airline_powerline_fonts = 1 
+" let g:solarized_termtrans=1
+" let g:solarized_termcolors=256
 
 "
 " maps 
