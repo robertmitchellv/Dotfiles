@@ -14,7 +14,7 @@ mkdir bin projects
 
 ## --> bin
 cd ~/code/bin/
-mkdir javascript Python R
+mkdir javascript Python R Go
 
 ### --> javascript
 cd ~/code/bin/javascript/
@@ -27,6 +27,10 @@ mkdir libraries enviornments
 ### --> R
 cd ~/code/bin/R/
 mkdir docs packages repos
+
+### --> Go
+cd ~/code/bin/Go
+mkdir docs repos
 
 ## --> projects
 cd ~/code/projects/
