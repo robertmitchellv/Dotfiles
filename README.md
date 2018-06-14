@@ -8,6 +8,12 @@ This is my simple new `Pop!_OS` setup branch
 git clone https://github.com/robertmitchellv/dotfiles.git ~/dotfiles
 ```
 
+Make sure you're in the `pop-os` branch
+
+```{bash}
+git checkout pop-os
+```
+
 ### 2. Create directories
 
 The `create-structure.sh` script creates the directories I want to start using as a way to better organize my files.
@@ -108,6 +114,9 @@ phantomjs --version
 casperjs --version
 ```
 
+If this doesn't work, you can also `sudo apt install phantomjs` and then build
+`casperjs` from source.
+
 ### 7. Rprofile
 
 Very minimal, it points to where I want to keep my R packages mostly
@@ -171,12 +180,19 @@ away.
 
 ### 11. `hub`
 
-Build from source via `git`
+Build from source using `go`,  (make sure `$GOROOT` and `GOPATH`
+are set `.zshrc`)
 
 ```{bash}
-git clone https://github.com/github/hub.git ~/tmp/hub
-cd ~/tmp/hub
-sudo script/build -o /bin/hub
+echo $GOROOT
+```
+
+Make sure it's working
+
+```{bash}
+go get github.com/github/hub
+cd "$GOPATH"/src/github.com/github/hub
+make install prefix=/usr/local
 ```
 
 Now create an alias in `.zshrc`

@@ -13,6 +13,8 @@
 # oh-my-zsh generated settings:
 #
 
+export ZSH="/home/rbmv/.oh-my-zsh"
+
 # set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # see https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -62,9 +64,10 @@ prompt_context() {
 # path variables
 #
 
-export ZSH="/home/rbmv/.oh-my-zsh"
 export PATH="/bin:/usr/bin:$PATH"
-# export PATH="/usr/bin/gdal-config:$PATH"
+export GOROOT="/usr/lib/go"
+export GOPATH="/home/rbmv/code/bin/Go"
+export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 
 #
 # compilation flags
