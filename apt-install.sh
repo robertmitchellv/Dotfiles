@@ -17,6 +17,7 @@ apt install -y \
   bison \
   cdbs \
   clang \
+  csvkit \
   curl \
   debhelper \
   default-jdk \

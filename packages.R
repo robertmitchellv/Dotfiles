@@ -8,7 +8,7 @@ packages <- c(
  "dichromat", "digest", "downloader", "dplyr", "elastic", "emo",
  "evaluate", "extrafont", "extrafontdb", "fontBitstreamVera",
  "fontLiberation", "fontquiver", "forcats", "feather",
- "flexdashboard", "fulltext", "gam", "geojson", "geojsonio",
+ "flexdashboard", "fs", "fulltext", "gam", "geojson", "geojsonio",
  "ggplot2", "gh", "git2r", "glmnet", "glue", "googlesheets",
  "gridExtra", "gtable", "h2o", "haven", "hexbin", "highr", "hms",
  "hrbrthemes", "htmltools", "htmlwidgets", "httpuv", "httr", "igraph",
