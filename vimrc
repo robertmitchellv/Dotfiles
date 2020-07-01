@@ -1,7 +1,7 @@
 " @robertmitchellv
 "
 "  ___________
-" <  .vimrc   > 
+" <  .vimrc   >
 "  -----------
 "         \   ^__^
 "          \  (oo)\_______
@@ -35,6 +35,9 @@ Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'dracula/vim'
+Plugin 'haishanh/night-owl.vim'
+Plugin 'ayu-theme/ayu-vim'
 Plugin 'chrisbra/csv.vim'
 Plugin 'tmux-plugins/vim-tmux'
 Plugin 'tpope/vim-fugitive'
@@ -63,27 +66,28 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line 
 
 "
-" colors
-"
-
-" colorscheme solarized
-
-"
 " syntax
 "
 
 syntax enable
 
 "
+" colors
+"
+
+colorscheme ayu 
+
+"
 " sets
 "
- 
+
+set termguicolors
 set history=700
 set textwidth=79
 set encoding=utf-8
 set modelines=0
 set t_Co=256
-set background=dark
+" set background=dark
 set laststatus=2
 set expandtab
 set tabstop=4
@@ -101,9 +105,21 @@ set wildmenu
 " lets
 "
  
-" let g:airline_powerline_fonts = 1 
-" let g:solarized_termtrans=1
-" let g:solarized_termcolors=256
+let g:airline_powerline_fonts = 1 
+" let ayucolor="light"  " for light version of theme
+let ayucolor="mirage" " for mirage version of theme
+" let ayucolor="dark"   " for dark version of theme
+" let g:dracula_italic=1
+" let g:dracula_termtrans=1
+" let g:dracula_termcolors=256
+" IndentLine {{
+let g:indentLine_char = ''
+let g:indentLine_first_char = ''
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_setColors = 0
+" }}
+let g:syntastic_enable_r_lintr_checker = 1
+let g:syntastic_r_checkers = ['lintr']
 
 "
 " maps 
@@ -112,4 +128,5 @@ set wildmenu
 map <F2> :NERDTreeToggle<CR>
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
+
 
